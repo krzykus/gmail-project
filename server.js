@@ -1,27 +1,38 @@
-//--Express--//
+//#region boilerplate
+//Express
 const express = require('express');
 const app = express();
 const port = 3001;
 
-//--Cors--//
-//required for cross origin requests
+//Cors
 var corsOptions = {
     origin: 'http://localhost:3000',
     optionsSuccessStatus: 200
   }
 const cors = require('cors')(corsOptions);
 
-//--Express Middleware--//
+//AppSettings
+const googleCredentials = JSON.parse(fs.readFileSync('credentials.json'));
+//#endregion
+
+//#region Express Middleware
 app.use(cors);
 app.use(express.json());
+//#endregion
 
+//#region controllers
+const GmailController = require('./domains/gmail/controller');
+GmailController(app, googleCredentials);
+//#endregion
 
-//--Routes--//
+//#region Routes (Ping only)
 app.get('/ping', (req, res) => {
     res.send("pong");
-})
+});
+//#endregion
 
-//--Start Server--//
+//#region Start Server
 app.listen(port, () => {
     console.log(`Listening on port ${port}!`)
 });
+//#endregion
