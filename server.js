@@ -1,5 +1,6 @@
 //--Express--//
-const app = require('express')();
+const express = require('express');
+const app = express();
 const port = 3001;
 
 //--Cors--//
@@ -17,7 +18,7 @@ app.use(express.json());
 
 //--Routes--//
 app.get('/ping', (req, res) => {
-    res.send(pong);
+    res.send("pong");
 })
 
 //--Start Server--//
